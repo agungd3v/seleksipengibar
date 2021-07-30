@@ -16,7 +16,33 @@
     <link rel="manifest" href="{{ asset('img/favicon/site.webmanifest') }}">
     <link rel="mask-icon" href="{{ asset('img/favicon/safari-pinned-tab.svg') }}" color="#ffffff">
     <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="og:title" content="Seleksi pengibar"/>
+    <meta name="og:type" content="website"/>
+    <meta name="og:url" content="http://seleksipengibar.online/"/>
+    <meta name="og:image" content="{{ asset('img/favicon/favicon-32x32.png') }}"/>
+    <meta name="og:site_name" content="IMDb"/>
+    <meta name="og:description" content="Platform informasi seleksi pengibar online 2021"/>
     <meta name="theme-color" content="#ffffff">
+    <meta name="keywords" content="your, tags"/>
+    <meta name="description" content="Platform informasi seleksi pengibar online 2021"/>
+    <meta name="subject" content="Seleksi pengibar online 2021">
+    <meta name="copyright"content="agungd3v">
+    <meta name="language" content="ID">
+    <meta name="robots" content="index,follow" />
+    <meta name="Classification" content="Business">
+    <meta name="author" content="agungd3v, agungd3v@gmail.com">
+    <meta name="designer" content="agungd3v">
+    <meta name="copyright" content="agungd3v">
+    <meta name="owner" content="agungd3v">
+    <meta name="url" content="http://seleksipengibar.online">
+    <meta name="identifier-URL" content="http://seleksipengibar.online">
+    <meta name="directory" content="submission">
+    <meta name="coverage" content="Worldwide">
+    <meta name="distribution" content="Global">
+    <meta name="revisit-after" content="7 days">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
 </head>
 
 <body>
