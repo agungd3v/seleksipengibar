@@ -14,9 +14,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Content\IndexController@index')->name('index');
+Route::get('/peserta', 'Content\IndexController@peserta')->name('peserta');
 
 Auth::routes([
     'register' => false
