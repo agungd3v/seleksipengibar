@@ -7,6 +7,7 @@
   <link type="text/css" href="{{ asset('vendor/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
   <link type="text/css" href="{{ asset('vendor/notyf/notyf.min.css') }}" rel="stylesheet">
   <link type="text/css" href="{{ asset('css/volt.css') }}" rel="stylesheet">
+  @stack('css')
   <title>Dashboard - Seleksi pengibar bendera</title>
   <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('img/favicon/apple-touch-icon.png') }}">
   <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/favicon/favicon-32x32.png') }}">
@@ -34,7 +35,7 @@
         <div class="d-flex align-items-center">
           <div class="avatar-lg me-4">
             <img src="{{ asset('img/team/profile-picture-3.jpg') }}" class="card-img-top rounded-circle border-white"
-              alt="Bonnie Green">
+              alt="{{ Auth::user()->name }}">
           </div>
           <div class="d-block">
             <h2 class="h5 mb-3">Hi, Jane</h2>
@@ -77,6 +78,14 @@
             <span class="sidebar-text">Peserta</span>
           </a>
         </li>
+        <li class="nav-item @yield('penilaian')">
+          <a href="{{ route('admin.penilaian') }}" class="nav-link">
+            <span class="sidebar-icon">
+              <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
+            </span> 
+            <span class="sidebar-text">Penilaian</span>
+          </a>
+        </li>
       </ul>
     </div>
   </nav>
@@ -91,7 +100,7 @@
                 <div class="media d-flex align-items-center">
                   <img class="avatar rounded-circle" alt="Image placeholder" src="{{ asset('img/team/profile-picture-3.jpg') }}">
                   <div class="media-body ms-2 text-dark align-items-center d-none d-lg-block">
-                    <span class="mb-0 font-small fw-bold text-gray-900">Bonnie Green</span>
+                    <span class="mb-0 font-small fw-bold text-gray-900">{{ Auth::user()->name }}</span>
                   </div>
                 </div>
               </a>
@@ -105,10 +114,12 @@
                   Support
                 </a>
                 <div role="separator" class="dropdown-divider my-1"></div>
-                <a class="dropdown-item d-flex align-items-center" href="#">
+                <a class="dropdown-item d-flex align-items-center" href="javascript:void(0)" onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
                   <svg class="dropdown-icon text-danger me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>                
                   Logout
                 </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
               </div>
             </li>
           </ul>
@@ -116,10 +127,11 @@
       </div>
     </nav>
     <div class="py-4">
-      <div class="d-flex justify-content-between w-100 flex-wrap">
+      <div class="d-flex justify-content-between align-items-end w-100 flex-wrap">
         <div class="mb-3 mb-lg-0">
           <h1 class="h4">@yield('title')</h1>
         </div>
+        @yield('report')
       </div>
     </div>
     @yield('content')
@@ -138,5 +150,6 @@
   <script src="{{ asset('vendor/simplebar/dist/simplebar.min.js') }}"></script>
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <script src="{{ asset('js/volt.js') }}"></script>
+  @stack('js')
 </body>
 </html>
