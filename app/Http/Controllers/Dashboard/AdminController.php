@@ -6,12 +6,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Peserta;
 use App\Penilaian;
+use Carbon\Carbon;
 use PDF;
 
 class AdminController extends Controller
 {
     public function index() {
-        return view('dashboard.index');
+        $peserta = Peserta::whereMonth('created_at', '=', Carbon::now()->subMonth()->month)->count();
+        $penilaian = Penilaian::whereMonth('created_at', '=', Carbon::now()->subMonth()->month)->count();
+        $rata_rata = Penilaian::where('rata_rata', '>=', 400)->whereMonth('created_at', '=', Carbon::now()->subMonth()->month)->count();
+        return view('dashboard.index', compact('peserta', 'penilaian', 'rata_rata'));
     }
 
     public function peserta() {
