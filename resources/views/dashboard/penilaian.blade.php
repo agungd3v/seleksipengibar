@@ -13,6 +13,14 @@
   @csrf
   <div class="d-flex justify-content-between align-items-center flex-wrap" style="gap: 10px">
     <div class="form-group">
+      <label for="jenis_kelamin">Jenis Kelamin</label>
+      <select name="jenis_kelamin" id="jenis_kelamin" class="form-control custom-select">
+        <option value="" selected hidden>Pilih Jenis Kelamin &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+        <option value="L">Laki - Laki</option>
+        <option value="P">Perempuan</option>
+      </select>
+    </div>
+    <div class="form-group">
       <label for="from">Dari</label>
       <input type="date" id="from" name="from" class="form-control" min="{{ date('Y-m-d', strtotime(now())) }}">
     </div>
@@ -467,9 +475,9 @@
       }
       return null;
     }
-    $("select").select2({
+    $("#peserta").select2({
       theme: "bootstrap-5",
-      dropdownParent: $("select").parent(),
+      dropdownParent: $("#peserta").parent(),
       matcher: matchCustom
     });
   })

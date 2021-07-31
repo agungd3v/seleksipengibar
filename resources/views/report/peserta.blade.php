@@ -24,12 +24,17 @@
   </style>
 </head>
 <body>
-  @if ($from || $to)
-    <h2 style="margin-bottom: 0">Periode</h2>
-    <span>{{ $from ? $from : '' }} {{ $from && !$to ? '>' : '' }} {{ $from && $to ? '-' : '' }} {{ !$from && $to ? '<' : '' }} {{ $to ? $to : '' }}</span>
-  @endif
   <table style="width: 100%">
     <thead>
+      @if ($jenis_kelamin)
+        <tr style="background: #10B981">
+          <th colspan="7">
+            <span style="font-size: 21px">
+              {{ $jenis_kelamin == 'L' ? 'LAKI - LAKI' : 'PEREMPUAN' }}
+            </span>
+          </th>
+        </tr>
+      @endif
       <tr>
         <th style="text-align: center; background: #f0bc74">No</th>
         <th style="width: 100%; background: #f0bc74">Nama Peserta</th>

@@ -22,6 +22,7 @@ class AdminController extends Controller
     public function pesertaPost(Request $request) {
         $request->validate([
             'name' => 'required|min:5',
+            'jenis_kelamin' => 'required|in:L,P',
             'nomor' => 'required|numeric',
             'sekolah' => 'required|min:5',
             'tinggi' => 'required|numeric',
@@ -30,6 +31,7 @@ class AdminController extends Controller
         
         $peserta = new Peserta();
         $peserta->nama = $request->name;
+        $peserta->jenis_kelamin = $request->jenis_kelamin;
         $peserta->nomor_dada = $request->nomor;
         $peserta->asal_sekolah = $request->sekolah;
         $peserta->tinggi = $request->tinggi;
@@ -47,6 +49,7 @@ class AdminController extends Controller
     public function pesertaUpdate(Request $request) {
         $request->validate([
             'name_edit' => 'required|min:5',
+            'jenis_kelamin_edit' => 'required|in:L,P',
             'nomor_edit' => 'required|numeric',
             'sekolah_edit' => 'required|min:5',
             'tinggi_edit' => 'required|numeric',
@@ -60,6 +63,7 @@ class AdminController extends Controller
 
         $peserta->nama = $request->name_edit;
         $peserta->nomor_dada = $request->nomor_edit;
+        $peserta->jenis_kelamin = $request->jenis_kelamin_edit;
         $peserta->asal_sekolah = $request->sekolah_edit;
         $peserta->tinggi = $request->tinggi_edit;
         $peserta->berat = $request->berat_edit;
@@ -200,41 +204,76 @@ class AdminController extends Controller
     }
 
     public function reportPeserta(Request $request) {
+        $jenis_kelamin = $request->jenis_kelamin;
         $from = null;
         $to = null;
-        if ($request->from == null && $request->to == null) {
+        if ($request->from == null && $request->to == null && !$jenis_kelamin) {
             $pesertas = Peserta::orderBy('nomor_dada', 'asc')->get();
         } else {
-            if ($request->from != null && $request->to == null) {
-                $from = date('d/m/Y', strtotime($request->from));
-                $pesertas = Peserta::where('created_at', '>', $request->from)
-                                ->orderBy('nomor_dada', 'asc')
-                                ->get();
-            } elseif ($request->to != null && $request->from == null) {
-                $to = date('d/m/Y', strtotime($request->to));
-                $pesertas = Peserta::where('created_at', '<', $request->to)
-                                ->orderBy('nomor_dada', 'asc')
-                                ->get();
+            if (!$jenis_kelamin) {
+                if ($request->from != null && $request->to == null) {
+                    $from = date('d/m/Y', strtotime($request->from));
+                    $pesertas = Peserta::where('created_at', '>', $request->from)
+                                    ->orderBy('nomor_dada', 'asc')
+                                    ->get();
+                } elseif ($request->to != null && $request->from == null) {
+                    $to = date('d/m/Y', strtotime($request->to));
+                    $pesertas = Peserta::where('created_at', '<', $request->to)
+                                    ->orderBy('nomor_dada', 'asc')
+                                    ->get();
+                } else {
+                    $from = date('d/m/Y', strtotime($request->from));
+                    $to = date('d/m/Y', strtotime($request->to));
+                    $pesertas = Peserta::whereBetween('created_at', [$request->from, $request->to])
+                                    ->orderBy('nomor_dada', 'asc')
+                                    ->get();
+                }
             } else {
-                $from = date('d/m/Y', strtotime($request->from));
-                $to = date('d/m/Y', strtotime($request->to));
-                $pesertas = Peserta::whereBetween('created_at', [$request->from, $request->to])
-                                ->orderBy('nomor_dada', 'asc')
-                                ->get();
+                if ($jenis_kelamin && $request->from == null && $request->to == null) {
+
+                    $pesertas = Peserta::where('jenis_kelamin', $jenis_kelamin)->orderBy('nomor_dada', 'asc')->get();
+
+                } elseif ($request->from != null && $request->to == null) {
+                    $from = date('d/m/Y', strtotime($request->from));
+                    $pesertas = Peserta::where('jenis_kelamin', $jenis_kelamin)
+                                    ->where('created_at', '>', $request->from)
+                                    ->orderBy('nomor_dada', 'asc')
+                                    ->get();
+                } elseif ($request->to != null && $request->from == null) {
+                    $to = date('d/m/Y', strtotime($request->to));
+                    $pesertas = Peserta::where('jenis_kelamin', $jenis_kelamin)
+                                    ->where('created_at', '<', $request->to)
+                                    ->orderBy('nomor_dada', 'asc')
+                                    ->get();
+                } else {
+                    $from = date('d/m/Y', strtotime($request->from));
+                    $to = date('d/m/Y', strtotime($request->to));
+                    $pesertas = Peserta::where('jenis_kelamin', $jenis_kelamin)
+                                    ->whereBetween('created_at', [$request->from, $request->to])
+                                    ->orderBy('nomor_dada', 'asc')
+                                    ->get();
+                }
             }
         }
 
-        $pdf = PDF::loadview('report.peserta', compact('pesertas', 'from', 'to'))->setPaper('A4', 'landscape');
+        $pdf = PDF::loadview('report.peserta', compact('pesertas', 'jenis_kelamin', 'from', 'to'))->setPaper('A4', 'landscape');
         return $pdf->stream(
             "Report Peserta" . ($from || $to ? " - " : "") . ($from && $to ? "($from - " : $from) . ($from && $to ? "$to)" : $to)
         );
     }
 
     public function reportPenilaian(Request $request) {
+        $jenis_kelamin = $request->jenis_kelamin;
         $from = null;
         $to = null;
-        if ($request->from == null && $request->to == null) {
+        if ($request->from == null && $request->to == null  && !$jenis_kelamin) {
+
             $penilaians = Penilaian::orderBy('rata_rata', 'desc')->get();
+
+        } elseif ($request->from == null && $request->to == null && $jenis_kelamin) {
+
+            $penilaians = Penilaian::orderBy('rata_rata', 'desc')->get();
+
         } else {
             if ($request->from != null && $request->to == null) {
                 $from = date('d/m/Y', strtotime($request->from));
@@ -255,7 +294,7 @@ class AdminController extends Controller
             }
         }
 
-        $pdf = PDF::loadview('report.penilaian', compact('penilaians', 'from', 'to'))->setPaper('A4', 'landscape');
+        $pdf = PDF::loadview('report.penilaian', compact('penilaians', 'jenis_kelamin', 'from', 'to'))->setPaper('A4', 'landscape');
         return $pdf->stream(
             "Report Penilaian" . ($from || $to ? " - " : "") . ($from && $to ? "($from - " : $from) . ($from && $to ? "$to)" : $to)
         );

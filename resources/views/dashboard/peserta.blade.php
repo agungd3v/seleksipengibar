@@ -7,6 +7,14 @@
   @csrf
   <div class="d-flex justify-content-between align-items-center flex-wrap" style="gap: 10px">
     <div class="form-group">
+      <label for="jenis_kelamin">Jenis Kelamin</label>
+      <select name="jenis_kelamin" id="jenis_kelamin" class="form-control custom-select">
+        <option value="" selected hidden>Pilih Jenis Kelamin &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+        <option value="L">Laki - Laki</option>
+        <option value="P">Perempuan</option>
+      </select>
+    </div>
+    <div class="form-group">
       <label for="from">Dari</label>
       <input type="date" id="from" name="from" class="form-control" min="{{ date('Y-m-d', strtotime(now())) }}">
     </div>
@@ -105,14 +113,28 @@
           </div>
           <form action="{{ route('admin.peserta.post') }}" method="POST" class="mt-4">
             @csrf
-            <div class="form-group mb-2">
-              <label for="name">Nama Lengkap</label>
-              <div class="input-group">
-                <span class="input-group-text">
-                  <svg class="icon icon-xs text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                </span>
-                <input type="text" name="name" class="form-control" placeholder="Bambang Subagio" id="name" autofocus required>
-              </div>  
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <div class="form-group mb-2">
+                  <label for="name">Nama Lengkap</label>
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <svg class="icon icon-xs text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    </span>
+                    <input type="text" name="name" class="form-control" placeholder="Bambang Subagio" id="name" autofocus required>
+                  </div>  
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <div class="form-group mb-2">
+                  <label for="jenis_kelamin">Jenis Kelamin</label>
+                  <select name="jenis_kelamin" id="jenis_kelamin" class="form-control custom-select">
+                    <option value="" selected hidden>Pilih Jenis Kelamin</option>
+                    <option value="L">Laki - Laki</option>
+                    <option value="P">Perempuan</option>
+                  </select>
+                </div>
+              </div>
             </div>
             <div class="form-group">
               <div class="form-group mb-2">
@@ -191,14 +213,28 @@
           <form action="{{ route('admin.peserta.update') }}" method="POST" class="mt-4">
             @csrf
             <input type="hidden" name="peserta_id" id="peserta_id" value="xxx">
-            <div class="form-group mb-2">
-              <label for="name_edit">Nama Lengkap</label>
-              <div class="input-group">
-                <span class="input-group-text">
-                  <svg class="icon icon-xs text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                </span>
-                <input type="text" name="name_edit" class="form-control" placeholder="Bambang Subagio" id="name_edit" autofocus required>
-              </div>  
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <div class="form-group mb-2">
+                  <label for="name_edit">Nama Lengkap</label>
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <svg class="icon icon-xs text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    </span>
+                    <input type="text" name="name_edit" class="form-control" placeholder="Bambang Subagio" id="name_edit" autofocus required>
+                  </div>  
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <div class="form-group mb-2">
+                  <label for="jenis_kelamin_edit">Jenis Kelamin</label>
+                  <select name="jenis_kelamin_edit" id="jenis_kelamin_edit" class="form-control custom-select">
+                    <option value="" selected hidden>Pilih Jenis Kelamin</option>
+                    <option value="L">Laki - Laki</option>
+                    <option value="P">Perempuan</option>
+                  </select>
+                </div>
+              </div>
             </div>
             <div class="form-group">
               <div class="form-group mb-2">
@@ -296,6 +332,7 @@
   function updateData(data) {
     const elPesertaId = document.getElementById('peserta_id')
     const elPesertaName = document.getElementById('name_edit')
+    const elJenisKelamin = document.getElementById('jenis_kelamin_edit')
     const elNomor = document.getElementById('nomor_edit')
     const elSekolah = document.getElementById('sekolah_edit')
     const elAlamat = document.getElementById('alamat_edit')
@@ -304,6 +341,7 @@
 
     elPesertaId.value = data.id
     elPesertaName.value = data.nama
+    elJenisKelamin.value = data.jenis_kelamin
     elNomor.value = data.nomor_dada
     elSekolah.value = data.asal_sekolah
     elAlamat.value = data.alamat

@@ -27,12 +27,17 @@
   </style>
 </head>
 <body>
-  @if ($from || $to)
-    <h2 style="margin-bottom: 0">Periode</h2>
-    <span>{{ $from ? $from : '' }} {{ $from && !$to ? '>' : '' }} {{ $from && $to ? '-' : '' }} {{ !$from && $to ? '<' : '' }} {{ $to ? $to : '' }}</span>
-  @endif
-  <table class="table table-centered table-nowrap mb-0 rounded">
-    <thead class="thead-light">
+  <table style="width: 100%">
+    <thead>
+      @if ($jenis_kelamin)
+        <tr style="background: #10B981">
+          <th colspan="16">
+            <span style="font-size: 21px">
+              {{ $jenis_kelamin == 'L' ? 'LAKI - LAKI' : 'PEREMPUAN' }}
+            </span>
+          </th>
+        </tr>
+      @endif
       <tr>
         <th rowspan="2" colspan="2" style="vertical-align: middle; text-align: center; background: #f0bc74">NAMA PESERTA</th>
         <th colspan="2" style="text-align: center; background: #f0bc74">LARI</th>
@@ -61,24 +66,47 @@
     </thead>
     <tbody>
       @foreach ($penilaians as $penilaian)
-        <tr style="{{ $penilaian->rata_rata >= 400 ? 'background: #10B981' : 'background: #FBA918' }}">
-          <td><b>{{ $loop->iteration }}</b></td>
-          <td>{{ $penilaian->peserta->nama }}</td>
-          <td>{{ $penilaian->lari_total }}</td>
-          <td>{{ $penilaian->lari_meter }}</td>
-          <td>{{ $penilaian->b_inggris_aula }}</td>
-          <td>{{ $penilaian->b_inggris_r_bapak }}</td>
-          <td>{{ $penilaian->agama_aula }}</td>
-          <td>{{ $penilaian->agama_r_bapak }}</td>
-          <td>{{ $penilaian->pbb_aula }}</td>
-          <td>{{ $penilaian->pbb_r_bapak }}</td>
-          <td>{{ $penilaian->seni_budaya_aula }}</td>
-          <td>{{ $penilaian->seni_budaya_r_bapak }}</td>
-          <td>{{ $penilaian->pengetahuan_aula }}</td>
-          <td>{{ $penilaian->pengetahuan_r_bapak }}</td>
-          <td>{{ $penilaian->jumlah }}</td>
-          <td>{{ $penilaian->rata_rata }}</td>
-        </tr>
+        @if ($jenis_kelamin)
+          @if ($penilaian->peserta->jenis_kelamin == $jenis_kelamin)
+            <tr style="{{ $penilaian->rata_rata >= 400 ? 'background: #10B981' : 'background: #FFF' }}">
+              <td><b>{{ $loop->iteration }}</b></td>
+              <td>{{ $penilaian->peserta->nama }}</td>
+              <td>{{ $penilaian->lari_total }}</td>
+              <td>{{ $penilaian->lari_meter }}</td>
+              <td>{{ $penilaian->b_inggris_aula }}</td>
+              <td>{{ $penilaian->b_inggris_r_bapak }}</td>
+              <td>{{ $penilaian->agama_aula }}</td>
+              <td>{{ $penilaian->agama_r_bapak }}</td>
+              <td>{{ $penilaian->pbb_aula }}</td>
+              <td>{{ $penilaian->pbb_r_bapak }}</td>
+              <td>{{ $penilaian->seni_budaya_aula }}</td>
+              <td>{{ $penilaian->seni_budaya_r_bapak }}</td>
+              <td>{{ $penilaian->pengetahuan_aula }}</td>
+              <td>{{ $penilaian->pengetahuan_r_bapak }}</td>
+              <td>{{ $penilaian->jumlah }}</td>
+              <td>{{ $penilaian->rata_rata }}</td>
+            </tr>
+          @endif
+        @else
+          <tr style="{{ $penilaian->rata_rata >= 400 ? 'background: #10B981' : 'background: #FFF' }}">
+            <td><b>{{ $loop->iteration }}</b></td>
+            <td>{{ $penilaian->peserta->nama }}</td>
+            <td>{{ $penilaian->lari_total }}</td>
+            <td>{{ $penilaian->lari_meter }}</td>
+            <td>{{ $penilaian->b_inggris_aula }}</td>
+            <td>{{ $penilaian->b_inggris_r_bapak }}</td>
+            <td>{{ $penilaian->agama_aula }}</td>
+            <td>{{ $penilaian->agama_r_bapak }}</td>
+            <td>{{ $penilaian->pbb_aula }}</td>
+            <td>{{ $penilaian->pbb_r_bapak }}</td>
+            <td>{{ $penilaian->seni_budaya_aula }}</td>
+            <td>{{ $penilaian->seni_budaya_r_bapak }}</td>
+            <td>{{ $penilaian->pengetahuan_aula }}</td>
+            <td>{{ $penilaian->pengetahuan_r_bapak }}</td>
+            <td>{{ $penilaian->jumlah }}</td>
+            <td>{{ $penilaian->rata_rata }}</td>
+          </tr>
+        @endif
       @endforeach
     </tbody>
   </table>
