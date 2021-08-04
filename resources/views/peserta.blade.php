@@ -72,6 +72,7 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th rowspan="2" class="border-0" style="vertical-align: middle">Nama Peserta</th>
+                                        <th rowspan="2" class="border-0" style="vertical-align: middle"></th>
                                         <th colspan="2" class="border-0 text-center">Lari</th>
                                         <th colspan="2" class="border-0 text-center">B. Inggris</th>
                                         <th colspan="2" class="border-0 text-center">Agama</th>
@@ -104,6 +105,7 @@
                                                     {{ $penilaian->nama }}
                                                     <b class="text-secondary">( {{ $penilaian->asal_sekolah }} )</b>
                                                 </td>
+                                                <td>{{ $penilaian->jenis_kelamin == 'L' ? 'Laki - Laki' : 'Perempuan' }}</td>
                                                 <td class="text-center">{{ $penilaian->penilaian->lari_total }}</td>
                                                 <td class="text-center">{{ $penilaian->penilaian->lari_meter }}</td>
                                                 <td class="text-center">{{ $penilaian->penilaian->b_inggris_aula }}</td>

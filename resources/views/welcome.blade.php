@@ -147,7 +147,7 @@
                 </div>
             </div>
         </section>
-        <section class="section section-lg bg-white pt-3" id="pricing">
+        {{-- <section class="section section-lg bg-white pt-3" id="pricing">
             <div class="container">
                 <div class="row">
                     <div class="col-12 col-lg-8">
@@ -177,7 +177,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
     </main>
     <script src="{{ asset('vendor/@popperjs/core/dist/umd/popper.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>

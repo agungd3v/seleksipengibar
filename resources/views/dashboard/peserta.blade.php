@@ -67,6 +67,7 @@
               <tr>
                 <th class="border-0 rounded-start">#</th>
                 <th class="border-0">Nama Peserta</th>
+                <th class="border-0">Jenis Kelamin</th>
                 <th class="border-0">Nomor Dada</th>
                 <th class="border-0">Asal Sekolah</th>
                 <th class="border-0">Alamat</th>
@@ -80,6 +81,7 @@
                 <tr>
                   <th style="vertical-align: middle">{{ $loop->iteration }}</th>
                   <td class="fw-bold" style="vertical-align: middle">{{ $peserta->nama }}</td>
+                  <td style="vertical-align: middle">{{ $peserta->jenis_kelamin == 'L' ? 'Laki - Laki' : 'Perempuan' }}</td>
                   <td style="vertical-align: middle">{{ $peserta->nomor_dada }}</td>
                   <td style="vertical-align: middle">{{ $peserta->asal_sekolah }}</td>
                   <td style="vertical-align: middle">{{ $peserta->alamat }}</td>

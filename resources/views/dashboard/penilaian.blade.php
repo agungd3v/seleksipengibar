@@ -73,6 +73,7 @@
               <tr>
                 <th rowspan="2" class="border-0 rounded-start" style="vertical-align: middle"></th>
                 <th rowspan="2" class="border-0" style="vertical-align: middle">Nama Peserta</th>
+                <th rowspan="2" class="border-0" style="vertical-align: middle">Jenis Kelamin</th>
                 <th colspan="2" class="border-0 text-center">Lari</th>
                 <th colspan="2" class="border-0 text-center">B. Inggris</th>
                 <th colspan="2" class="border-0 text-center">Agama</th>
@@ -106,6 +107,7 @@
                   <tr style="cursor: pointer" onclick="editPenilaian({{ $penilaian }})">
                     <th>{{ $iteration++ }}</th>
                     <td class="fw-bold">{{ $penilaian->nama }}</td>
+                    <td>{{ $penilaian->jenis_kelamin == 'L' ? 'Laki - Laki' : 'Perempuan' }}</td>
                     <td>{{ $penilaian->penilaian->lari_total }}</td>
                     <td>{{ $penilaian->penilaian->lari_meter }}</td>
                     <td>{{ $penilaian->penilaian->b_inggris_aula }}</td>
