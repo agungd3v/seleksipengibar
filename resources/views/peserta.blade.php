@@ -81,6 +81,7 @@
                                         <th colspan="2" class="border-0 text-center">Pengetahuan</th>
                                         <th rowspan="2" class="border-0 text-center" style="vertical-align: middle">Jumlah</th>
                                         <th rowspan="2" class="border-0 text-center" style="vertical-align: middle">Rata - Rata</th>
+                                        <th rowspan="2" class="border-0 text-center" style="vertical-align: middle">Status</th>
                                     </tr>
                                     <tr>
                                         <th class="border-0">Total</th>
@@ -120,6 +121,7 @@
                                                 <td class="text-center">{{ $penilaian->penilaian->pengetahuan_r_bapak }}</td>
                                                 <td class="text-center">{{ $penilaian->penilaian->jumlah }}</td>
                                                 <td class="text-center">{{ $penilaian->penilaian->rata_rata }}</td>
+                                                <td class="text-center">{{ $penilaian->penilaian->rata_rata > 350 ? 'Lulus' : 'Tidak Lulus' }}</td>
                                             </tr>
                                         @endif
                                     @endforeach
