@@ -12,9 +12,9 @@ use PDF;
 class AdminController extends Controller
 {
     public function index() {
-        $peserta = Peserta::whereMonth('created_at', '=', Carbon::now()->subMonth()->month)->count();
-        $penilaian = Penilaian::whereMonth('created_at', '=', Carbon::now()->subMonth()->month)->count();
-        $rata_rata = Penilaian::where('rata_rata', '>=', 400)->whereMonth('created_at', '=', Carbon::now()->subMonth()->month)->count();
+        $peserta = Peserta::count();
+        $penilaian = Penilaian::count();
+        $rata_rata = Penilaian::where('rata_rata', '>=', 350)->count();
         return view('dashboard.index', compact('peserta', 'penilaian', 'rata_rata'));
     }
 
