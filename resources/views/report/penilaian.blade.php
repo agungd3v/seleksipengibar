@@ -110,11 +110,13 @@
       @endforeach
     </tbody>
   </table>
-  <div style="margin-top: 50px">
-    <div style="display: inline-block; width: 100px; height: 30px; background: #10B981"></div>
-    <div style="vertical-align: middle; height: 20px; margin-left: 10px; display: inline-block">
-      <span>Lulus</span>
+  @if (count($penilaians) > 0)
+    <div style="margin-top: 50px">
+      <div style="display: inline-block; width: 100px; height: 30px; background: #10B981"></div>
+      <div style="vertical-align: middle; height: 20px; margin-left: 10px; display: inline-block">
+        <span>Lulus</span>
+      </div>
     </div>
-  </div>
+  @endif
 </body>
 </html>
