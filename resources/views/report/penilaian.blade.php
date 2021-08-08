@@ -68,7 +68,7 @@
       @foreach ($penilaians as $penilaian)
         @if ($jenis_kelamin)
           @if ($penilaian->peserta->jenis_kelamin == $jenis_kelamin)
-            <tr style="{{ $penilaian->rata_rata >= 400 ? 'background: #10B981' : 'background: #FFF' }}">
+            <tr style="{{ $penilaian->rata_rata >= 350 ? 'background: #10B981' : 'background: #FFF' }}">
               <td><b>{{ $loop->iteration }}</b></td>
               <td>{{ $penilaian->peserta->nama }}</td>
               <td>{{ $penilaian->lari_total }}</td>
@@ -88,7 +88,7 @@
             </tr>
           @endif
         @else
-          <tr style="{{ $penilaian->rata_rata >= 400 ? 'background: #10B981' : 'background: #FFF' }}">
+          <tr style="{{ $penilaian->rata_rata >= 350 ? 'background: #10B981' : 'background: #FFF' }}">
             <td><b>{{ $loop->iteration }}</b></td>
             <td>{{ $penilaian->peserta->nama }}</td>
             <td>{{ $penilaian->lari_total }}</td>
@@ -110,5 +110,11 @@
       @endforeach
     </tbody>
   </table>
+  <div style="margin-top: 50px">
+    <div style="display: inline-block; width: 100px; height: 30px; background: #10B981"></div>
+    <div style="vertical-align: middle; height: 20px; margin-left: 10px; display: inline-block">
+      <span>Lulus</span>
+    </div>
+  </div>
 </body>
 </html>
