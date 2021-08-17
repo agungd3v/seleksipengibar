@@ -1,6 +1,7 @@
 @extends('layouts.main')
 @section('title', 'Peserta')
 @section('peserta', 'active')
+@section('collapse', 'show')
 
 @section('report')
 <form action="{{ route('admin.report.peserta') }}" method="POST">
@@ -54,6 +55,17 @@
   @endforeach
 </div>
 @endif
+@if (session()->has('errorMessage'))
+<div class="row">
+  <div class="col-12">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <span class="fas fa-bullhorn me-1"></span>
+      <strong>Gagal!</strong> {{ session()->get('errorMessage') }}.
+      <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>
+</div>  
+@endif
 <div class="row">
   <div class="col-12 mb-4">
     <div class="card border-0 shadow components-section">
@@ -88,6 +100,7 @@
                   <td style="vertical-align: middle">{{ $peserta->tinggi }}</td>
                   <td style="vertical-align: middle">{{ $peserta->berat }}</td>
                   <td style="vertical-align: middle">
+                    <a class="btn btn-sm btn-secondary" href="{{ route('admin.report.peserta.id', $peserta->id) }}">Cetak Data Peserta</a>
                     <button class="btn btn-sm btn-info" type="button" onclick="updateData({{ $peserta }})">Update</button>
                     <button class="btn btn-sm btn-danger" type="button" onclick="deleteData({{ $peserta->id }})">Delete</button>
                   </td>
@@ -113,7 +126,7 @@
           <div class="text-center text-md-center mb-4 mt-md-0">
             <h1 class="mb-0 h4">Form Tambah Peserta</h1>
           </div>
-          <form action="{{ route('admin.peserta.post') }}" method="POST" class="mt-4">
+          <form action="{{ route('admin.peserta.post') }}" method="POST" class="mt-4" enctype="multipart/form-data">
             @csrf
             <div class="row">
               <div class="col-md-6 col-sm-12">
@@ -138,26 +151,32 @@
                 </div>
               </div>
             </div>
-            <div class="form-group">
-              <div class="form-group mb-2">
-                <label for="nomor">Nomor Dada</label>
-                <div class="input-group">
-                  <span class="input-group-text">
-                    <svg class="icon icon-xs text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"></path></svg>
-                  </span>
-                  <input type="number" name="nomor" placeholder="001" class="form-control" id="nomor" required>
-                </div>  
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                  <div class="form-group mb-2">
+                    <label for="nomor">Nomor Dada</label>
+                    <div class="input-group">
+                      <span class="input-group-text">
+                        <svg class="icon icon-xs text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"></path></svg>
+                      </span>
+                      <input type="number" name="nomor" placeholder="001" class="form-control" id="nomor" required>
+                    </div>  
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <div class="form-group mb-2">
-                <label for="sekolah">Asal Sekolah</label>
-                <div class="input-group">
-                  <span class="input-group-text">
-                    <svg class="icon icon-xs text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                  </span>
-                  <input type="text" name="sekolah" placeholder="SMA N 1 Metro" class="form-control" id="sekolah" required>
-                </div>  
+              <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                  <div class="form-group mb-2">
+                    <label for="sekolah">Asal Sekolah</label>
+                    <div class="input-group">
+                      <span class="input-group-text">
+                        <svg class="icon icon-xs text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                      </span>
+                      <input type="text" name="sekolah" placeholder="SMA N 1 Metro" class="form-control" id="sekolah" required>
+                    </div>  
+                  </div>
+                </div>
               </div>
             </div>
             <div class="form-group">
@@ -182,7 +201,7 @@
               </div>
               <div class="col-md-6 col-sm-12">
                 <div class="form-group">
-                  <div class="form-group mb-5">
+                  <div class="form-group mb-2">
                     <label for="berat">Berat Badan</label>
                     <div class="input-group">
                       <span class="input-group-text">
@@ -192,6 +211,12 @@
                     </div>  
                   </div>
                 </div>
+              </div>
+            </div>
+            <div class="row mb-5">
+              <div class="col-sm-12">
+                <label for="photo" class="form-label">Photo</label>
+                <input class="form-control" name="photo" type="file" id="photo">
               </div>
             </div>
             <div class="d-grid">
@@ -212,7 +237,7 @@
           <div class="text-center text-md-center mb-4 mt-md-0">
             <h1 class="mb-0 h4">Form Update Peserta</h1>
           </div>
-          <form action="{{ route('admin.peserta.update') }}" method="POST" class="mt-4">
+          <form action="{{ route('admin.peserta.update') }}" method="POST" class="mt-4" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="peserta_id" id="peserta_id" value="xxx">
             <div class="row">
@@ -282,7 +307,7 @@
               </div>
               <div class="col-md-6 col-sm-12">
                 <div class="form-group">
-                  <div class="form-group mb-5">
+                  <div class="form-group mb-2">
                     <label for="berat_edit">Berat Badan</label>
                     <div class="input-group">
                       <span class="input-group-text">
@@ -292,6 +317,12 @@
                     </div>  
                   </div>
                 </div>
+              </div>
+            </div>
+            <div class="row mb-5">
+              <div class="col-sm-12">
+                <label for="photo_edit" class="form-label">Photo</label>
+                <input class="form-control" name="photo_edit" type="file" id="photo_edit">
               </div>
             </div>
             <div class="d-grid">

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Report Penilaian {{ $from || $to ? "-" : "" }} {{ $from && $to ? "($from" : $from }} {{ $from && $to ? '-' : '' }} {{ $from && $to ? "$to)" : $to }}</title>
+  <title>Report Penilaian</title>
   <style>
     @font-face {
       font-family: 'Fira Sans';
@@ -30,87 +30,48 @@
   <table style="width: 100%">
     <thead>
       @if ($jenis_kelamin)
-        <tr style="background: #10B981">
-          <th colspan="16">
-            <span style="font-size: 21px">
-              {{ $jenis_kelamin == 'L' ? 'LAKI - LAKI' : 'PEREMPUAN' }}
-            </span>
+        <tr style="background: #10B981; border: 0">
+          <th colspan="2" style="padding: 0; border: 0">
+            <div style="border: 1px solid #000; padding: 10px">
+              <span style="font-size: 21px">
+                {{ $jenis_kelamin == 'L' ? 'LAKI - LAKI' : 'PEREMPUAN' }}
+              </span>
+            </div>
           </th>
         </tr>
       @endif
       <tr>
-        <th rowspan="2" colspan="2" style="vertical-align: middle; text-align: center; background: #f0bc74">NAMA PESERTA</th>
-        <th colspan="2" style="text-align: center; background: #f0bc74">LARI</th>
-        <th colspan="2" style="text-align: center; background: #f0bc74">B. INGGRIS</th>
-        <th colspan="2" style="text-align: center; background: #f0bc74">AGAMA</th>
-        <th colspan="2" style="text-align: center; background: #f0bc74">PBB</th>
-        <th colspan="2" style="text-align: center; background: #f0bc74">SENI BUDAYA</th>
-        <th colspan="2" style="text-align: center; background: #f0bc74">PENGETAHUAN</th>
-        <th rowspan="2" style="vertical-align: middle; text-align: center; background: #f0bc74">JUMLAH</th>
-        <th rowspan="2" style="vertical-align: middle; text-align: center; background: #f0bc74">RATA - RATA</th>
+        <th rowspan="2" style="text-align: center; background: #f0bc74; vertical-align: middle">Nama Peserta</th>
+        <th rowspan="2" style="text-align: center; background: #f0bc74; vertical-align: middle; padding-right: 0">Jenis Kelamin</th>
+        <th colspan="{{ count($materis) }}" style="text-align: center; background: #f0bc74; padding-left: 0">Penilaian Seleksi Peserta</th>
+        <th rowspan="2" style="text-align: center; background: #f0bc74; vertical-align: middle">Jumlah</th>
+        <th rowspan="2" style="text-align: center; background: #f0bc74; vertical-align: middle">Rata - Rata</th>
       </tr>
       <tr>
-        <th style="background: #2361ce; color: #fff">TOTAL</th>
-        <th style="background: #2361ce; color: #fff">METER</th>
-        <th style="background: #2361ce; color: #fff">AULA</th>
-        <th style="background: #2361ce; color: #fff">R. BAPAK</th>
-        <th style="background: #2361ce; color: #fff">AULA</th>
-        <th style="background: #2361ce; color: #fff">R. BAPAK</th>
-        <th style="background: #2361ce; color: #fff">AULA</th>
-        <th style="background: #2361ce; color: #fff">R. BAPAK</th>
-        <th style="background: #2361ce; color: #fff">AULA</th>
-        <th style="background: #2361ce; color: #fff">R. BAPAK</th>
-        <th style="background: #2361ce; color: #fff">AULA</th>
-        <th style="background: #2361ce; color: #fff">R. BAPAK</th>
+        @foreach ($materis as $materi)
+          <th style="background: #2361ce; color: #fff">{{ $materi->nama_materi }}</th>
+        @endforeach
       </tr>
     </thead>
     <tbody>
-      @foreach ($penilaians as $penilaian)
-        @if ($jenis_kelamin)
-          @if ($penilaian->peserta->jenis_kelamin == $jenis_kelamin)
-            <tr style="{{ $penilaian->rata_rata >= 350 ? 'background: #10B981' : 'background: #FFF' }}">
-              <td><b>{{ $loop->iteration }}</b></td>
-              <td>{{ $penilaian->peserta->nama }}</td>
-              <td>{{ $penilaian->lari_total }}</td>
-              <td>{{ $penilaian->lari_meter }}</td>
-              <td>{{ $penilaian->b_inggris_aula }}</td>
-              <td>{{ $penilaian->b_inggris_r_bapak }}</td>
-              <td>{{ $penilaian->agama_aula }}</td>
-              <td>{{ $penilaian->agama_r_bapak }}</td>
-              <td>{{ $penilaian->pbb_aula }}</td>
-              <td>{{ $penilaian->pbb_r_bapak }}</td>
-              <td>{{ $penilaian->seni_budaya_aula }}</td>
-              <td>{{ $penilaian->seni_budaya_r_bapak }}</td>
-              <td>{{ $penilaian->pengetahuan_aula }}</td>
-              <td>{{ $penilaian->pengetahuan_r_bapak }}</td>
-              <td>{{ $penilaian->jumlah }}</td>
-              <td>{{ $penilaian->rata_rata }}</td>
-            </tr>
-          @endif
-        @else
-          <tr style="{{ $penilaian->rata_rata >= 350 ? 'background: #10B981' : 'background: #FFF' }}">
-            <td><b>{{ $loop->iteration }}</b></td>
-            <td>{{ $penilaian->peserta->nama }}</td>
-            <td>{{ $penilaian->lari_total }}</td>
-            <td>{{ $penilaian->lari_meter }}</td>
-            <td>{{ $penilaian->b_inggris_aula }}</td>
-            <td>{{ $penilaian->b_inggris_r_bapak }}</td>
-            <td>{{ $penilaian->agama_aula }}</td>
-            <td>{{ $penilaian->agama_r_bapak }}</td>
-            <td>{{ $penilaian->pbb_aula }}</td>
-            <td>{{ $penilaian->pbb_r_bapak }}</td>
-            <td>{{ $penilaian->seni_budaya_aula }}</td>
-            <td>{{ $penilaian->seni_budaya_r_bapak }}</td>
-            <td>{{ $penilaian->pengetahuan_aula }}</td>
-            <td>{{ $penilaian->pengetahuan_r_bapak }}</td>
-            <td>{{ $penilaian->jumlah }}</td>
-            <td>{{ $penilaian->rata_rata }}</td>
-          </tr>
-        @endif
+      @foreach ($newRekaps as $rekap)
+        <tr style="cursor: pointer">
+          <td>{{ $rekap['nama_peserta'] }}</td>
+          <td>{{ $rekap['jenis_kelamin'] == 'L' ? 'Laki - Laki' : 'Perempuan' }}</td>
+          @foreach ($materis as $mtr)
+            @if (isset($rekap[$mtr->id]))
+              <td>{{ $rekap[$mtr->id] }}</td>
+            @else
+              <td>0</td>
+            @endif
+          @endforeach
+          <td>{{ $rekap['jumlah'] }}</td>
+          <td>{{ $rekap['rata_rata'] }}</td>
+        </tr>
       @endforeach
     </tbody>
   </table>
-  @if (count($penilaians) > 0)
+  @if (count($newRekaps) > 0)
     <div style="margin-top: 50px">
       <div style="display: inline-block; width: 100px; height: 30px; background: #10B981"></div>
       <div style="vertical-align: middle; height: 20px; margin-left: 10px; display: inline-block">

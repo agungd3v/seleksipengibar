@@ -70,20 +70,92 @@
             <span class="sidebar-text">Dashboard</span>
           </a>
         </li>
-        <li class="nav-item @yield('peserta')">
+        <li class="nav-item">
+          <span
+            class="nav-link  collapsed  d-flex justify-content-between align-items-center"
+            data-bs-toggle="collapse" data-bs-target="#submenu-components">
+            <span>
+              <span class="sidebar-icon">
+                <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z"></path><path fill-rule="evenodd" d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+              </span> 
+              <span class="sidebar-text">Data Seleksi</span>
+            </span>
+            <span class="link-arrow">
+              <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+            </span>
+          </span>
+          <div class="multi-level collapse @yield('collapse')" role="list"
+            id="submenu-components" aria-expanded="false">
+            <ul class="flex-column nav">
+              <li class="nav-item @yield('peserta')">
+                <a href="{{ route('admin.peserta') }}" class="nav-link">
+                  <span class="sidebar-text">Data Peserta</span>
+                </a>
+              </li>
+              <li class="nav-item @yield('materi')">
+                <a href="{{ route('admin.materi') }}" class="nav-link">
+                  <span class="sidebar-text">Data Materi</span>
+                </a>
+              </li>
+              <li class="nav-item @yield('ruang')">
+                <a href="{{ route('admin.ruang') }}" class="nav-link">
+                  <span class="sidebar-text">Data Ruangan</span>
+                </a>
+              </li>
+              <li class="nav-item @yield('penilai')">
+                <a href="{{ route('admin.penilai') }}" class="nav-link">
+                  <span class="sidebar-text">Data Penilai</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        {{-- <li class="nav-item @yield('peserta')">
           <a href="{{ route('admin.peserta') }}" class="nav-link">
             <span class="sidebar-icon">
               <svg class="icon icon-xs me-2" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
             </span> 
-            <span class="sidebar-text">Peserta</span>
+            <span class="sidebar-text">Data Peserta</span>
           </a>
         </li>
+        <li class="nav-item @yield('materi')">
+          <a href="{{ route('admin.materi') }}" class="nav-link">
+            <span class="sidebar-icon">
+              <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
+            </span> 
+            <span class="sidebar-text">Data Materi</span>
+          </a>
+        </li>
+        <li class="nav-item @yield('ruang')">
+          <a href="{{ route('admin.ruang') }}" class="nav-link">
+            <span class="sidebar-icon">
+              <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
+            </span> 
+            <span class="sidebar-text">Data Ruangan</span>
+          </a>
+        </li>
+        <li class="nav-item @yield('penilai')">
+          <a href="{{ route('admin.penilai') }}" class="nav-link">
+            <span class="sidebar-icon">
+              <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
+            </span> 
+            <span class="sidebar-text">Data Penilai</span>
+          </a>
+        </li> --}}
         <li class="nav-item @yield('penilaian')">
           <a href="{{ route('admin.penilaian') }}" class="nav-link">
             <span class="sidebar-icon">
               <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
             </span> 
             <span class="sidebar-text">Penilaian</span>
+          </a>
+        </li>
+        <li class="nav-item @yield('rekap')">
+          <a href="{{ route('admin.rekap') }}" class="nav-link">
+            <span class="sidebar-icon">
+              <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
+            </span> 
+            <span class="sidebar-text">Rekap Nilai</span>
           </a>
         </li>
       </ul>

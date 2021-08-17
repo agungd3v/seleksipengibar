@@ -52,10 +52,8 @@
                             <div class="form-group" style="flex: 1">
                                 <select name="peserta" id="peserta" class="form-control" onchange="selectedPeserta(this)">
                                     <option value="" selected hidden>Select Peserta</option>
-                                    @foreach ($penilaians as $peserta)
-                                        @if ($peserta->penilaian != null)
-                                            <option value="{{ $peserta->id }}">{{ $peserta->nama }}</option>
-                                        @endif
+                                    @foreach ($pesertas as $peserta)
+                                        <option value="{{ $peserta->id }}">{{ $peserta->nama }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -71,59 +69,33 @@
                             <table class="table table-centered table-nowrap mb-0 rounded" id="table_penilaian">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th rowspan="2" class="border-0" style="vertical-align: middle">Nama Peserta</th>
-                                        <th rowspan="2" class="border-0" style="vertical-align: middle"></th>
-                                        <th colspan="2" class="border-0 text-center">Lari</th>
-                                        <th colspan="2" class="border-0 text-center">B. Inggris</th>
-                                        <th colspan="2" class="border-0 text-center">Agama</th>
-                                        <th colspan="2" class="border-0 text-center">PBB</th>
-                                        <th colspan="2" class="border-0 text-center">Seni Budaya</th>
-                                        <th colspan="2" class="border-0 text-center">Pengetahuan</th>
-                                        <th rowspan="2" class="border-0 text-center" style="vertical-align: middle">Jumlah</th>
-                                        <th rowspan="2" class="border-0 text-center" style="vertical-align: middle">Rata - Rata</th>
-                                        <th rowspan="2" class="border-0 text-center" style="vertical-align: middle">Status</th>
+                                        <th rowspan="2" class="border-0 bg-secondary" style="vertical-align: middle; width: 0">Nama Peserta</th>
+                                        <th rowspan="2" class="border-0 bg-secondary text-center" style="vertical-align: middle">Jenis Kelamin</th>
+                                        <th colspan="{{ count($materis) }}" class="border-0 text-center bg-secondary" style="padding-left: 0">Penilaian Seleksi Peserta</th>
+                                        <th rowspan="2" class="border-0 bg-secondary text-center" style="vertical-align: middle">Jumlah</th>
+                                        <th rowspan="2" class="border-0 bg-secondary text-center" style="vertical-align: middle">Rata - Rata</th>
                                     </tr>
                                     <tr>
-                                        <th class="border-0">Total</th>
-                                        <th class="border-0">Meter</th>
-                                        <th class="border-0">Aula</th>
-                                        <th class="border-0">R. Bapak</th>
-                                        <th class="border-0">Aula</th>
-                                        <th class="border-0">R. Bapak</th>
-                                        <th class="border-0">Aula</th>
-                                        <th class="border-0">R. Bapak</th>
-                                        <th class="border-0">Aula</th>
-                                        <th class="border-0">R. Bapak</th>
-                                        <th class="border-0">Aula</th>
-                                        <th class="border-0">R. Bapak</th>
+                                        @foreach ($materis as $materi)
+                                            <th class="border-0 bg-secondary text-center" style="width: 0">{{ $materi->nama_materi }}</th>
+                                        @endforeach
                                     </tr>
                                 </thead>
                                 <tbody id="item_default">
-                                    @foreach ($penilaians as $penilaian)
-                                        @if ($penilaian->penilaian != null)
-                                            <tr style="cursor: pointer">
-                                                <td class="fw-bold">
-                                                    {{ $penilaian->nama }}
-                                                    <b class="text-secondary">( {{ $penilaian->asal_sekolah }} )</b>
-                                                </td>
-                                                <td>{{ $penilaian->jenis_kelamin == 'L' ? 'Laki - Laki' : 'Perempuan' }}</td>
-                                                <td class="text-center">{{ $penilaian->penilaian->lari_total }}</td>
-                                                <td class="text-center">{{ $penilaian->penilaian->lari_meter }}</td>
-                                                <td class="text-center">{{ $penilaian->penilaian->b_inggris_aula }}</td>
-                                                <td class="text-center">{{ $penilaian->penilaian->b_inggris_r_bapak }}</td>
-                                                <td class="text-center">{{ $penilaian->penilaian->agama_aula }}</td>
-                                                <td class="text-center">{{ $penilaian->penilaian->agama_r_bapak }}</td>
-                                                <td class="text-center">{{ $penilaian->penilaian->pbb_aula }}</td>
-                                                <td class="text-center">{{ $penilaian->penilaian->pbb_r_bapak }}</td>
-                                                <td class="text-center">{{ $penilaian->penilaian->seni_budaya_aula }}</td>
-                                                <td class="text-center">{{ $penilaian->penilaian->seni_budaya_r_bapak }}</td>
-                                                <td class="text-center">{{ $penilaian->penilaian->pengetahuan_aula }}</td>
-                                                <td class="text-center">{{ $penilaian->penilaian->pengetahuan_r_bapak }}</td>
-                                                <td class="text-center">{{ $penilaian->penilaian->jumlah }}</td>
-                                                <td class="text-center">{{ $penilaian->penilaian->rata_rata }}</td>
-                                                <td class="text-center">{{ $penilaian->penilaian->rata_rata > 350 ? 'Lulus' : 'Tidak Lulus' }}</td>
-                                            </tr>
-                                        @endif
+                                    @foreach ($newRekaps as $rekap)
+                                        <tr style="cursor: pointer" onclick="">
+                                            <td class="fw-bold">{{ $rekap['nama_peserta'] }} (<span style="font-weight: 600;">{{ $rekap['asal_sekolah'] }}</span>)</td>
+                                            <td class="fw-bold text-center">{{ $rekap['jenis_kelamin'] }}</td>
+                                            @foreach ($materis as $mtr)
+                                                @if (isset($rekap[$mtr->id]))
+                                                    <td class="text-center">{{ $rekap[$mtr->id] }}</td>
+                                                @else
+                                                    <td class="text-center">0</td>
+                                                @endif
+                                            @endforeach
+                                            <td class="fw-bold text-center">{{ $rekap['jumlah'] }}</td>
+                                            <td class="fw-bold text-center">{{ $rekap['rata_rata'] }}</td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -186,34 +158,35 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id: data.value })
                 }).then(res => res.json()).then(data => {
-                    if (data.status) {
-                        const peserta = data.message
+                    if (data.status && data.message.pesertas.length > 0) {
+                        const dtxx = data.message
+                        let zero = 0
                         tbodyDefault.classList.add('d-none')
-
-                        tablePenilaian.innerHTML += `
-                            <tbody id="item_result">
-                                <tr style="cursor: pointer">
-                                    <td class="fw-bold">
-                                        ${peserta.nama}
-                                        <b class="text-secondary">( ${peserta.asal_sekolah} )</b>
-                                    </td>
-                                    <td class="text-center">${peserta.penilaian.lari_total}</td>
-                                    <td class="text-center">${peserta.penilaian.lari_meter}</td>
-                                    <td class="text-center">${peserta.penilaian.b_inggris_aula}</td>
-                                    <td class="text-center">${peserta.penilaian.b_inggris_r_bapak}</td>
-                                    <td class="text-center">${peserta.penilaian.agama_aula}</td>
-                                    <td class="text-center">${peserta.penilaian.agama_r_bapak}</td>
-                                    <td class="text-center">${peserta.penilaian.pbb_aula}</td>
-                                    <td class="text-center">${peserta.penilaian.pbb_r_bapak}</td>
-                                    <td class="text-center">${peserta.penilaian.seni_budaya_aula}</td>
-                                    <td class="text-center">${peserta.penilaian.seni_budaya_r_bapak}</td>
-                                    <td class="text-center">${peserta.penilaian.pengetahuan_aula}</td>
-                                    <td class="text-center">${peserta.penilaian.pengetahuan_r_bapak}</td>
-                                    <td class="text-center">${peserta.penilaian.jumlah}</td>
-                                    <td class="text-center">${peserta.penilaian.rata_rata}</td>
-                                </tr>
-                            </tbody>
-                        `
+                        dtxx.pesertas.forEach(pst => {
+                            tablePenilaian.innerHTML += `
+                                <tbody id="item_result">
+                                    <tr style="cursor: pointer">
+                                        <td class="fw-bold">${pst.nama_peserta} (<span style="font-weight: 600;">${pst.asal_sekolah}</span>)</td>
+                                        <td class="fw-bold text-center">${pst.jenis_kelamin}</td>
+                                        ${dtxx.materis.map((materi, i) => (
+                                            `<td class="text-center">
+                                                ${
+                                                    typeof pst[materi.id] != undefined ? pst[materi.id] == undefined ? zero : pst[materi.id] : zero
+                                                }
+                                            </td>`
+                                        )).join('')}
+                                        <td class="fw-bold text-center">${pst.jumlah}</td>
+                                        <td class="fw-bold text-center">${pst.rata_rata}</td>
+                                    </tr>
+                                </tbody>
+                            `
+                        })
+                    } else {
+                        if (tablePenilaian.querySelector('#item_result')) {
+                            tablePenilaian.querySelector('#item_result').remove()
+                        }
+                        alert('Peserta belum diberi penilaian, kembali lagi besok')
+                        tbodyDefault.classList.remove('d-none')
                     }
                 }).catch(err => {
                     console.error(err)

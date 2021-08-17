@@ -15,24 +15,19 @@ class CreatePenilaiansTable extends Migration
     {
         Schema::create('penilaians', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_penilaian');
             $table->unsignedBigInteger('peserta_id');
-            $table->double('lari_total');
-            $table->double('lari_meter');
-            $table->double('b_inggris_aula');
-            $table->double('b_inggris_r_bapak');
-            $table->double('agama_aula');
-            $table->double('agama_r_bapak');
-            $table->double('pbb_aula');
-            $table->double('pbb_r_bapak');
-            $table->double('seni_budaya_aula');
-            $table->double('seni_budaya_r_bapak');
-            $table->double('pengetahuan_aula');
-            $table->double('pengetahuan_r_bapak');
-            $table->double('jumlah');
-            $table->double('rata_rata');
+            $table->unsignedBigInteger('materi_id');
+            $table->unsignedBigInteger('ruang_id');
+            $table->unsignedBigInteger('penilai_id');
+            $table->double('nilai');
+            $table->text('keterangan')->nullable();
             $table->timestamps();
 
             $table->foreign('peserta_id')->references('id')->on('pesertas')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('materi_id')->references('id')->on('materi_seleksi')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('ruang_id')->references('id')->on('ruang')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('penilai_id')->references('id')->on('penilai')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
