@@ -17,11 +17,11 @@
     </div>
     <div class="form-group">
       <label for="from">Dari</label>
-      <input type="date" id="from" name="from" class="form-control" min="{{ date('Y-m-d', strtotime(now())) }}">
+      <input type="date" id="from" name="from" class="form-control">
     </div>
     <div class="form-group">
       <label for="to">Sampai</label>
-      <input type="date" id="to" name="to" class="form-control" min="{{ date('Y-m-d', strtotime(now())) }}">
+      <input type="date" id="to" name="to" class="form-control">
     </div>
     <div class="form-group">
       <button type="submit" class="btn btn-secondary" style="margin-top: 30px">Report</button>

@@ -83,19 +83,21 @@
                                 </thead>
                                 <tbody id="item_default">
                                     @foreach ($newRekaps as $rekap)
-                                        <tr style="cursor: pointer" onclick="">
-                                            <td class="fw-bold">{{ $rekap['nama_peserta'] }} (<span style="font-weight: 600;">{{ $rekap['asal_sekolah'] }}</span>)</td>
-                                            <td class="fw-bold text-center">{{ $rekap['jenis_kelamin'] }}</td>
-                                            @foreach ($materis as $mtr)
-                                                @if (isset($rekap[$mtr->id]))
-                                                    <td class="text-center">{{ $rekap[$mtr->id] }}</td>
-                                                @else
-                                                    <td class="text-center">0</td>
-                                                @endif
-                                            @endforeach
-                                            <td class="fw-bold text-center">{{ $rekap['jumlah'] }}</td>
-                                            <td class="fw-bold text-center">{{ $rekap['rata_rata'] }}</td>
-                                        </tr>
+                                        @if ($rekap['rata_rata'] >= 350)
+                                            <tr style="cursor: pointer">
+                                                <td class="fw-bold">{{ $rekap['nama_peserta'] }} (<span style="font-weight: 600;">{{ $rekap['asal_sekolah'] }}</span>)</td>
+                                                <td class="fw-bold text-center">{{ $rekap['jenis_kelamin'] }}</td>
+                                                @foreach ($materis as $mtr)
+                                                    @if (isset($rekap[$mtr->id]))
+                                                        <td class="text-center">{{ $rekap[$mtr->id] }}</td>
+                                                    @else
+                                                        <td class="text-center">0</td>
+                                                    @endif
+                                                @endforeach
+                                                <td class="fw-bold text-center">{{ $rekap['jumlah'] }}</td>
+                                                <td class="fw-bold text-center">{{ $rekap['rata_rata'] }}</td>
+                                            </tr>
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>
@@ -165,7 +167,7 @@
                         dtxx.pesertas.forEach(pst => {
                             tablePenilaian.innerHTML += `
                                 <tbody id="item_result">
-                                    <tr style="cursor: pointer">
+                                    <tr style="cursor: pointer; background: ${pst.rata_rata >= 350 ? '#10B981' : '#ffffff'}">
                                         <td class="fw-bold">${pst.nama_peserta} (<span style="font-weight: 600;">${pst.asal_sekolah}</span>)</td>
                                         <td class="fw-bold text-center">${pst.jenis_kelamin}</td>
                                         ${dtxx.materis.map((materi, i) => (

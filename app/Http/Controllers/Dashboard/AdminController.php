@@ -129,7 +129,7 @@ class AdminController extends Controller
     public function pesertaDelete(Request $request) {
         $peserta = Peserta::find($request->delete_peserta_id);
         if ($peserta) {
-            if (isset($peserta->penilaian)) {
+            if (isset($peserta->penilaian) && count($peserta->penilaian) != 0) {
                 $checkRekap = Rekapnilai::where('kode_penilaian', $peserta->penilaian[0]->kode_penilaian)->first();
                 if ($checkRekap) {
                     $checkRekap->delete();
@@ -501,12 +501,12 @@ class AdminController extends Controller
             if (!$jenis_kelamin) {
                 if ($request->from != null && $request->to == null) {
                     $from = date('d/m/Y', strtotime($request->from));
-                    $pesertas = Peserta::where('created_at', '>', $request->from)
+                    $pesertas = Peserta::where('created_at', '>=', $request->from)
                                     ->orderBy('nomor_dada', 'asc')
                                     ->get();
                 } elseif ($request->to != null && $request->from == null) {
                     $to = date('d/m/Y', strtotime($request->to));
-                    $pesertas = Peserta::where('created_at', '<', $request->to)
+                    $pesertas = Peserta::where('created_at', '<=', $request->to)
                                     ->orderBy('nomor_dada', 'asc')
                                     ->get();
                 } else {
@@ -524,13 +524,13 @@ class AdminController extends Controller
                 } elseif ($request->from != null && $request->to == null) {
                     $from = date('d/m/Y', strtotime($request->from));
                     $pesertas = Peserta::where('jenis_kelamin', $jenis_kelamin)
-                                    ->where('created_at', '>', $request->from)
+                                    ->where('created_at', '>=', $request->from)
                                     ->orderBy('nomor_dada', 'asc')
                                     ->get();
                 } elseif ($request->to != null && $request->from == null) {
                     $to = date('d/m/Y', strtotime($request->to));
                     $pesertas = Peserta::where('jenis_kelamin', $jenis_kelamin)
-                                    ->where('created_at', '<', $request->to)
+                                    ->where('created_at', '<=', $request->to)
                                     ->orderBy('nomor_dada', 'asc')
                                     ->get();
                 } else {

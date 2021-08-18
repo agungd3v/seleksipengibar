@@ -55,7 +55,7 @@
     </thead>
     <tbody>
       @foreach ($newRekaps as $rekap)
-        <tr style="cursor: pointer">
+        <tr style="cursor: pointer; background: {{ $rekap['rata_rata'] >= 350 ? '#10B981' : '#fff' }}">
           <td>{{ $rekap['nama_peserta'] }}</td>
           <td>{{ $rekap['jenis_kelamin'] == 'L' ? 'Laki - Laki' : 'Perempuan' }}</td>
           @foreach ($materis as $mtr)
