@@ -87,11 +87,6 @@
           <div class="multi-level collapse @yield('collapse')" role="list"
             id="submenu-components" aria-expanded="false">
             <ul class="flex-column nav">
-              <li class="nav-item @yield('peserta')">
-                <a href="{{ route('admin.peserta') }}" class="nav-link">
-                  <span class="sidebar-text">Data Peserta</span>
-                </a>
-              </li>
               <li class="nav-item @yield('materi')">
                 <a href="{{ route('admin.materi') }}" class="nav-link">
                   <span class="sidebar-text">Data Materi</span>
