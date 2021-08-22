@@ -24,6 +24,7 @@
   </style>
 </head>
 <body>
+  <h2 style="text-align: center">Rekapitulasi Data Peserta</h2>
   <table style="width: 100%">
     <thead>
       @if ($jenis_kelamin)
@@ -59,5 +60,9 @@
       @endforeach
     </tbody>
   </table>
+  <div style="position: fixed; bottom: 0; margin-left: 850px">
+    <div style="width: 116px; border: 1px solid #000"></div>
+    <span>(Panitia Seleksi)</span>
+  </div>
 </body>
 </html>
