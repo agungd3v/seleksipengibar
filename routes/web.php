@@ -58,4 +58,6 @@ Route::group(['prefix' => 'dashboard', 'namespace' => 'Dashboard', 'middleware' 
     Route::post('/report/peserta', 'AdminController@reportPeserta')->name('admin.report.peserta');
     Route::get('/report/peserta/{id}', 'AdminController@reportPesertaId')->name('admin.report.peserta.id');
     Route::post('/report/rekap', 'AdminController@reportRekap')->name('admin.report.rekap');
+
+    Route::post('/changepassword', 'AdminController@changePassword')->name('admin.changepwd');
 });

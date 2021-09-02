@@ -10,7 +10,9 @@ use Illuminate\Http\Request;
 use App\Peserta;
 use App\Rekapnilai;
 use App\Ruang;
-use Carbon\Carbon;
+use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use PDF;
@@ -593,5 +595,20 @@ class AdminController extends Controller
         }
         $pdf = PDF::loadview('report.penilaian', compact('newRekaps', 'materis', 'jenis_kelamin'))->setPaper('A4', 'landscape');
         return $pdf->stream("Report Penilaian");
+    }
+
+    public function changePassword(Request $request) {
+      $user = Auth::user();
+      if (!$user) {
+        return redirect()->route('admin.dashboard')->with('errorMessage', 'Are you Robbot ?');
+      }
+      if (!$request->password) {
+        return redirect()->route('admin.dashboard')->with('errorMessage', 'Mohon untuk mengisi password baru jika ingin menggantinya!');
+      }
+      $getUser = User::where('id', $user->id)->first();
+      $getUser->password = Hash::make($request->password);
+      $getUser->save();
+      
+      return redirect()->route('admin.dashboard')->with('berhasil', 'Berhasil mengubah password');
     }
 }

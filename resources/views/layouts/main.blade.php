@@ -148,13 +148,9 @@
                 </div>
               </a>
               <div class="dropdown-menu dashboard-dropdown dropdown-menu-end mt-2 py-1">
-                <a class="dropdown-item d-flex align-items-center" href="#">
+                <a class="dropdown-item d-flex align-items-center" href="javascript:void(0)" onclick="openCPW()">
                   <svg class="dropdown-icon text-gray-400 me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>
-                  My Profile
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <svg class="dropdown-icon text-gray-400 me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-2 0c0 .993-.241 1.929-.668 2.754l-1.524-1.525a3.997 3.997 0 00.078-2.183l1.562-1.562C15.802 8.249 16 9.1 16 10zm-5.165 3.913l1.58 1.58A5.98 5.98 0 0110 16a5.976 5.976 0 01-2.516-.552l1.562-1.562a4.006 4.006 0 001.789.027zm-4.677-2.796a4.002 4.002 0 01-.041-2.08l-.08.08-1.53-1.533A5.98 5.98 0 004 10c0 .954.223 1.856.619 2.657l1.54-1.54zm1.088-6.45A5.974 5.974 0 0110 4c.954 0 1.856.223 2.657.619l-1.54 1.54a4.002 4.002 0 00-2.346.033L7.246 4.668zM12 10a2 2 0 11-4 0 2 2 0 014 0z" clip-rule="evenodd"></path></svg>
-                  Support
+                  Change Password
                 </a>
                 <div role="separator" class="dropdown-divider my-1"></div>
                 <a class="dropdown-item d-flex align-items-center" href="javascript:void(0)" onclick="event.preventDefault();
@@ -179,6 +175,29 @@
     </div>
     @yield('content')
   </main>
+  <div class="modal fade" id="changepwd" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Form Change Password</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{{ route('admin.changepwd') }}" method="POST">
+          @csrf
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="pwd">New Password</label>
+              <input type="password" name="password" id="pwd" class="form-control" autocomplete="off">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
   <script src="{{ asset('vendor/@popperjs/core/dist/umd/popper.min.js') }}"></script>
   <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('vendor/onscreen/dist/on-screen.umd.min.js') }}"></script>
@@ -193,6 +212,11 @@
   <script src="{{ asset('vendor/simplebar/dist/simplebar.min.js') }}"></script>
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <script src="{{ asset('js/volt.js') }}"></script>
+  <script>
+    function openCPW() {
+      $('#changepwd').modal('show')
+    }
+  </script>
   @stack('js')
 </body>
 </html>

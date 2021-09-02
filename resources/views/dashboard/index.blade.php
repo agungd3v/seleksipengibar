@@ -2,6 +2,10 @@
 @section('title', 'Dashboard')
 @section('dashboard', 'active')
 
+@push('js')
+<script src="{{ asset('dist/js/jquery-3.6.0.min.js') }}"></script>
+@endpush
+
 @section('content')
 <div class="row">
   <div class="col-12 col-sm-6 col-xl-4 mb-4">
@@ -74,4 +78,26 @@
     </div>
   </div>
 </div>
+@if (session()->has('errorMessage'))
+<div class="row">
+  <div class="col-12">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <span class="fas fa-bullhorn me-1"></span>
+      <strong>Gagal!</strong> {{ session()->get('errorMessage') }}.
+      <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+@endif
+@if (session()->has('berhasil'))
+<div class="row">
+  <div class="col-12">
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+      <span class="fas fa-bullhorn me-1"></span>
+      <strong>Selamat!</strong> {{ session()->get('berhasil') }}.
+      <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+@endif
 @endsection
